@@ -14,6 +14,6 @@ public class HelloServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         PrintWriter writer = response.getWriter();
 
-        writer.write("Hello 5");
+        writer.write("Hello 6");
     }
 }
