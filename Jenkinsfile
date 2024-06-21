@@ -5,14 +5,19 @@ pipeline {
             // Этап для получения исходного кода из репозитория
             steps {
                 sh 'echo "Checkout..."'
-                checkout scm // Команда для получения исходного кода из репозитория, указанного в настройках Jenkins
+                git(
+                    url: "https://github.com/AlexAristov/jenkins.git",
+                    branch: "main",
+                    changelog: true,
+                    poll: true
+                )
             }
         }
         stage('Build') {
             steps {
                 // Команды для сборки вашего проекта
                 sh 'echo "Building..."'
-                sh "hostname"
+                sh "mvn clean package"
             }
         }
         stage('Test') {
@@ -25,6 +30,7 @@ pipeline {
             steps {
                 // Команды для развертывания вашего проекта
                 sh 'echo "Deploying..."'
+                sh "cp ./target/jenkins-1.0-SNAPSHOT.war /opt/tomcat/webapps"
             }
         }
     }
